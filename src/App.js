@@ -4,10 +4,18 @@ import "./App.css";
 
 function App() {
   const [query, setQuery] = useState("Cupertino, US");
-  const [city, setCity] = useState("");
-  const [temp, setTemp] = useState("");
-  const [condition, setCondition] = useState("");
-  const [country, setCountry] = useState("");
+  // const [city, setCity] = useState("");
+  // const [temp, setTemp] = useState("");
+  // const [condition, setCondition] = useState("");
+  // const [country, setCountry] = useState("");
+
+  //variable weather is an object that consists of all the temp, city etc.
+  const [weather, setWeather] = useState({
+    temp: null,
+    city: null,
+    condition: null,
+    country: null,
+  });
 
   const data = async (q) => {
     const apiRes = await fetch(
@@ -16,28 +24,36 @@ function App() {
     const resJSON = await apiRes.json();
     return resJSON;
   };
+
   //.then statement has access to value of promise, then you can do something to value
   // data().then((res) => {
   //   console.log("feels like is: " + res.main.feels_like);
   //   console.log("temp is: " + res.main.temp);
   // });
+
   const handleSearch = (e) => {
     e.preventDefault();
     data(query).then((res) => {
-      setTemp(res.main.temp);
-      setCondition(res.weather[0].main);
-      setCountry(res.sys.country);
-      setCity(res.name);
+      // setTemp(res.main.temp);
+      // setCondition(res.weather[0].main);
+      // setCountry(res.sys.country);
+      // setCity(res.name);
+      setWeather({
+        temp: res.main.temp,
+        city: res.name,
+        condition: res.weather[0].main,
+        country: res.sys.country,
+      });
     });
   };
 
   return (
     <div className="App">
       <WeatherCard
-        temp={temp}
-        condition={condition}
-        city={city}
-        country={country}
+        temp={weather.temp}
+        condition={weather.condition}
+        city={weather.city}
+        country={weather.country}
       />
       <WeatherCard temp={100} condition="Haze" city="Shanghai" country="CN" />
       <WeatherCard
