@@ -6,8 +6,11 @@ function App() {
   return (
     <div className="App">
       <WeatherEngine location="Cupertino, US" />
-      <div></div>
       <WeatherEngine location="Shanghai, CN" />
+      <WeatherEngine location="Los Angeles, US" />
+      <WeatherEngine location="Boston, US" />
+      <WeatherEngine location="London, UK" />
+      <WeatherEngine location="Toronto, CA" />
     </div>
   );
 }
